@@ -1,0 +1,19 @@
+body {
+  background-color:  #E0E7FF;   /* culoarea principală */
+  font-family:  sans-serif;   /* fontul pentru text */
+  color: #252B3B;              /* culoarea textului */
+  text-align: center;
+}
+ 
+#titlu {
+  font-family: sans-serif;   /* fontul pentru titluri */
+}
+ 
+#start {
+  background-color: #E0E7FF;   /* culoarea de accent */
+  color: white;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+}
