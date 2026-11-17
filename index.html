@@ -2,61 +2,135 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <title>Organi-Time</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Dashboard | OrganiTime</title>
   <link rel="stylesheet" href="style.css">
-  </head>
+  <script src="functionality.js" defer></script>
+</head>
 <body>
- 
-  <div>
-    <h2 id="programul_zilei">Programul zilei</h2>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Tempo - pagina principală">
+        <span class="brand-mark">t</span>
+        <span><img src="organitime-logo.png" alt="OrganiTime logo"><span class="brand-dot">.</span></span>
+      </a>
+      <div class="topbar-right">
+        <button class="icon-button" id="settingsButton" type="button" aria-label="Setări" title="Setări">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="m19.4 15 .1.1 1.2.9-1.2 2.1-1.4-.6a7.9 7.9 0 0 1-1.7 1l-.2 1.5h-2.4l-.3-1.5a7.9 7.9 0 0 1-1.8-1l-1.4.6-1.2-2.1 1.2-.9a7.3 7.3 0 0 1 0-2l-1.2-.9 1.2-2.1 1.4.6a7.9 7.9 0 0 1 1.8-1l.3-1.5h2.4l.2 1.5a7.9 7.9 0 0 1 1.7 1l1.4-.6 1.2 2.1-1.2.9a7.3 7.3 0 0 1 0 2Z" transform="translate(-1 -1) scale(.96)"/></svg>
+        </button>
+        <button class="account-button" id="accountButton" type="button">
+          <span class="avatar">A</span>
+          <span class="account-label"><strong>Contul meu</strong><small>Profil placeholder</small></span>
+          <span class="chevron">⌄</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="dashboard">
+      <section class="welcome-row">
+        <div>
+          <p class="eyebrow" id="todayLabel">PLANIFICARE ZILNICĂ</p>
+          <h1>Hai să-ți organizezi ziua<span class="heading-period">.</span></h1>
+          <p class="welcome-subtitle">Un pas pe rând. Tu alegi ritmul.</p>
+        </div>
+        <div class="date-pill"><span class="date-spark">✦</span><span id="currentDate">Astăzi</span></div>
+      </section>
+
+      <section class="primary-grid" aria-label="Program și calendar">
+        <article class="panel schedule-panel">
+          <div class="panel-heading">
+            <div class="heading-icon purple-icon">☷</div>
+            <div><p class="eyebrow">PLANUL TĂU</p><h2>Programul zilei</h2></div>
+            <span class="count-pill" id="scheduleCount">0 activități</span>
+          </div>
+          <p class="panel-description">Ce ai în plan pentru ziua de azi?</p>
+          <div class="schedule-list" id="scheduleList" aria-live="polite"></div>
+          <div class="empty-state" id="scheduleEmpty">
+            <span class="empty-illustration">✎</span>
+            <strong>Ziua ta începe cu un plan</strong>
+            <p>Adaugă un eveniment în calendar, iar acesta va apărea și aici.</p>
+          </div>
+          <button class="text-button" id="addScheduleButton" type="button"><span>＋</span> Adaugă activitate</button>
+        </article>
+
+        <article class="panel calendar-panel">
+          <div class="panel-heading">
+            <div class="heading-icon coral-icon">▦</div>
+            <div><p class="eyebrow">PRIVEȘTE ÎNAINTE</p><h2>Calendar</h2></div>
+            <button class="primary-button compact" id="addEventButton" type="button"><span>＋</span> Eveniment</button>
+          </div>
+          <div class="calendar-toolbar">
+            <button class="month-nav" id="prevMonth" type="button" aria-label="Luna precedentă">‹</button>
+            <h3 id="monthLabel">Luna, anul</h3>
+            <button class="month-nav" id="nextMonth" type="button" aria-label="Luna următoare">›</button>
+            <button class="today-button" id="todayButton" type="button">Astăzi</button>
+          </div>
+          <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="Calendar lunar"></div>
+          <div class="selected-date-row">
+            <div><span class="selected-date-dot"></span><strong id="selectedDateLabel">Evenimentele zilei</strong></div>
+            <span class="muted-small" id="selectedEventCount">0 evenimente</span>
+          </div>
+          <div class="calendar-events" id="calendarEvents" aria-live="polite"></div>
+        </article>
+      </section>
+
+      <section class="secondary-grid" aria-label="Obiective, progres, provocări și streak">
+        <article class="panel mini-panel goals-panel">
+          <div class="mini-heading"><div class="heading-icon mint-icon">◎</div><span class="eyebrow">DIRECȚIA TA</span><span class="placeholder-tag">ÎN CURÂND</span></div>
+          <h2>Obiective</h2>
+          <p>Lucrurile importante se construiesc pas cu pas.</p>
+          <div class="placeholder-line"><span class="placeholder-dot"></span><span>Obiectivul tău va apărea aici</span></div>
+          <div class="placeholder-line short"><span class="placeholder-dot"></span><span>Un pas mic pentru azi</span></div>
+          <button class="subtle-button placeholder-action" data-feature="Obiective" type="button">Explorează obiectivele <span>↗</span></button>
+        </article>
+
+        <article class="panel mini-panel progress-panel">
+          <div class="mini-heading"><div class="heading-icon blue-icon">↗</div><span class="eyebrow">EVOLUȚIA TA</span><span class="placeholder-tag">ÎN CURÂND</span></div>
+          <h2>Progres</h2>
+          <p>Vezi cum se adună eforturile tale în timp.</p>
+          <div class="progress-preview"><div class="progress-ring"><span>—</span></div><div><strong>Progresul tău</strong><small>Statisticile vor apărea aici</small></div></div>
+          <button class="subtle-button placeholder-action" data-feature="Progres" type="button">Vezi progresul <span>↗</span></button>
+        </article>
+
+        <article class="panel mini-panel challenge-panel">
+          <div class="mini-heading"><div class="heading-icon yellow-icon">✦</div><span class="eyebrow">IEȘI DIN RUTINĂ</span><span class="placeholder-tag">ÎN CURÂND</span></div>
+          <h2>Provocări</h2>
+          <p>Încearcă ceva nou și adună mici victorii.</p>
+          <div class="challenge-card"><span class="challenge-symbol">✧</span><div><strong>Provocarea zilei</strong><small>O idee nouă te așteaptă în curând.</small></div></div>
+          <button class="subtle-button placeholder-action" data-feature="Provocări" type="button">Descoperă provocările <span>↗</span></button>
+        </article>
+
+        <article class="panel mini-panel streak-panel">
+          <div class="mini-heading"><div class="heading-icon orange-icon">♨</div><span class="eyebrow">CONSECVENȚĂ</span><span class="placeholder-tag">ÎN CURÂND</span></div>
+          <h2>Streak-ul tău</h2>
+          <p>Consecvența contează mai mult decât perfecțiunea.</p>
+          <div class="streak-display"><span class="streak-flame">♨</span><div><strong>— zile</strong><small>Seria ta va începe aici</small></div></div>
+          <div class="week-dots" aria-label="Zilele săptămânii"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+        </article>
+      </section>
+
+      <footer class="dashboard-footer"><span><img src="OrganiTime-logo.png" alt="OrganiTime logo"><span class="brand-dot">.</span></span><span>Organizează timpul. Fă loc lucrurilor importante.</span></footer>
+    </main>
   </div>
 
-  <button id="accesare_zilnic">accesare</button>
-
-
-
-  <div>
-    <h2 id="titlu_obie">Obiective</h2>
-  </div>
-
-  <button id="accesare_obie">accesare</button>
-
-
-
-
-  <div>
-    <h2 id="titlu_calendar">Calendar</h2>
-  </div>
-
-  <button id="accesare_cale">accesare</button>
-
-
-
-
-  <div>
-    <h2 id="titlu_provocari">Provocari</h2>
-  </div>
-  
-  <button id="accesare_prov">accesare</button>
-
-
-
-  <div>
-    <h2 id="titlu_progres">Progres</h2>
-  </div>
-
-  <button id="accesare_progr">accesare</button>
-
-
-
-  <div>
-    <h2 id="dailyStreak">Streak</h2>
-  </div>
-
-  <button id="accesare_streak">accesare</button>
-
-  <div>--modifica din button in a pentru ca "a " e petnru link uri</div>
-
+  <dialog class="event-dialog" id="eventDialog" aria-labelledby="dialogTitle">
+    <form id="eventForm" method="dialog">
+      <div class="dialog-heading"><div><p class="eyebrow">PLANIFICĂ CE CONTEAZĂ</p><h2 id="dialogTitle">Adaugă un eveniment</h2></div><button class="close-button" id="closeDialog" type="button" aria-label="Închide">×</button></div>
+      <label for="eventTitle">Titlul activității</label>
+      <input id="eventTitle" name="title" type="text" placeholder="Ex. Învățat pentru test" maxlength="80" required>
+      <div class="form-two-columns">
+        <div><label for="eventDate">Data</label><input id="eventDate" name="date" type="date" required></div>
+        <div><label for="eventTime">Ora</label><input id="eventTime" name="time" type="time" value="09:00" required></div>
+      </div>
+      <label for="eventCategory">Categorie</label>
+      <select id="eventCategory" name="category"><option value="personal">Personal</option><option value="study">Studii</option><option value="work">Muncă</option><option value="health">Sănătate</option><option value="other">Altele</option></select>
+      <label for="eventNotes">Notițe <span class="optional-label">(opțional)</span></label>
+      <textarea id="eventNotes" name="notes" rows="3" maxlength="240" placeholder="Detalii pe care vrei să le ții minte..."></textarea>
+      <p class="form-error" id="formError" role="alert"></p>
+      <div class="dialog-actions"><button class="secondary-button" id="cancelDialog" type="button">Anulează</button><button class="primary-button" type="submit">Salvează evenimentul</button></div>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
-
